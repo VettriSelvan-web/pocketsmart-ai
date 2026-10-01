@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Create account{% endblock %}
+{% block content %}
+<section class="auth"><div class="card auth-card">
+  <h1>Create your account</h1>
+  <p class="muted">Start getting AI-powered budget recommendations.</p>
+  {% if error %}<div class="alert alert-error">{{ error }}</div>{% endif %}
+  <form method="post" action="/register" autocomplete="on">
+    <label>Username<input name="username" required minlength="3" maxlength="30" value="{{ form.username or '' }}"></label>
+    <label>Email<input type="email" name="email" required value="{{ form.email or '' }}"></label>
+    <label>Password<input type="password" name="password" required minlength="8" maxlength="72"></label>
+    <label>Confirm password<input type="password" name="confirm_password" required minlength="8" maxlength="72"></label>
+    <button class="btn btn-primary btn-block" type="submit">Create Account</button>
+  </form>
+  <p class="center muted">Already registered? <a href="/login">Sign in</a></p>
+</div></section>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% from "_macros.html" import planner_header %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+{{ planner_header("Hello, " ~ user.username ~ " 👋", "Choose a planner or revisit a previous recommendation.") }}
+<div class="container section-tight">
+  <div class="stats">
+    <div class="stat"><span>Total plans</span><strong>{{ total }}</strong></div>
+    <div class="stat"><span>Home plans</span><strong>{{ counts.get('home', 0) }}</strong></div>
+    <div class="stat"><span>Party plans</span><strong>{{ counts.get('party', 0) }}</strong></div>
+    <div class="stat"><span>Jewelry plans</span><strong>{{ counts.get('jewelry', 0) }}</strong></div>
+  </div>
+
+  <div class="cards three">
+    <a class="card feature planner-link" href="/home-planner"><div class="icon">🏠</div><h3>Home Budget Planner</h3><p>Furnish rooms within budget.</p></a>
+    <a class="card feature planner-link" href="/party-planner"><div class="icon">🎉</div><h3>Party Budget Planner</h3><p>Catering, venue &amp; decor.</p></a>
+    <a class="card feature planner-link" href="/jewelry-planner"><div class="icon">💍</div><h3>Jewelry Budget Planner</h3><p>Match your outfit &amp; occasion.</p></a>
+  </div>
+
+  <h2 class="mt">Recent recommendations</h2>
+  {% if recent %}
+  <div class="list">
+    {% for r in recent %}
+    <a class="list-row card" href="/recommendations/{{ r.id }}">
+      <span class="chip">{{ r.category | category_label }}</span>
+      <strong>{{ r.title }}</strong>
+      <span class="muted">{{ r.budget | inr }} · {{ r.created_at | nice_date }}</span>
+    </a>
+    {% endfor %}
+  </div>
+  <p><a class="link" href="/history">View full history →</a></p>
+  {% else %}
+  <div class="card empty">No recommendations yet — pick a planner above to create your first one.</div>
+  {% endif %}
+</div>
+{% endblock %}

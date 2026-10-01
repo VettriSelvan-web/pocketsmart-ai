@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% from "_macros.html" import planner_header %}
+{% block title %}Home Budget Planner{% endblock %}
+{% block content %}
+{{ planner_header("Home Interior Budget Planner", "Set your budget, add rooms, and tell us how many of each item you need.") }}
+<div class="container section-tight narrow">
+  <form id="home-form" class="card form" novalidate>
+    <div class="grid-2">
+      <label>Total budget (₹)<input type="number" id="budget" min="1" step="1" required placeholder="e.g. 150000"></label>
+      <label>Style
+        <select id="style">
+          <option value="">No preference</option><option>Modern</option><option>Minimalist</option>
+          <option>Traditional</option><option>Scandinavian</option><option>Industrial</option><option>Bohemian</option>
+        </select></label>
+    </div>
+
+    <div id="rooms"></div>
+    <button type="button" class="btn btn-outline" id="add-room">+ Add another room</button>
+
+    <label>Anything else? (optional)<textarea id="notes" maxlength="500" rows="2" placeholder="Colour preferences, pets, small space…"></textarea></label>
+
+    <div id="form-error" class="alert alert-error" hidden></div>
+    <button class="btn btn-primary btn-block" type="submit" id="submit-btn">Get Recommendations</button>
+  </form>
+</div>
+
+<template id="room-template">
+  <fieldset class="room card inner">
+    <div class="room-head">
+      <label>Room type
+        <select class="room-type">
+          <option>Living Room</option><option>Kitchen</option><option>Bedroom</option>
+          <option>Dining Room</option><option>Bathroom</option><option>Study / Office</option><option>Balcony</option>
+        </select></label>
+      <button type="button" class="btn btn-danger btn-sm remove-room">Remove</button>
+    </div>
+    <p class="muted small">Enter quantities (leave 0 if not needed):</p>
+    <div class="items-grid"></div>
+  </fieldset>
+</template>
+{% endblock %}
+{% block scripts %}<script src="/static/js/home.js" defer></script>{% endblock %}

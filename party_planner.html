@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% from "_macros.html" import planner_header %}
+{% block title %}Party Budget Planner{% endblock %}
+{% block content %}
+{{ planner_header("Party Budget Planner", "We'll split your budget across catering, venue, decoration and entertainment.") }}
+<div class="container section-tight narrow">
+  <form id="party-form" class="card form" novalidate>
+    <div class="grid-2">
+      <label>Total budget (₹)<input type="number" id="budget" min="1" step="1" required placeholder="e.g. 60000"></label>
+      <label>Number of guests<input type="number" id="guests" min="1" max="5000" step="1" required placeholder="e.g. 40"></label>
+      <label>Event type
+        <select id="event_type">
+          <option>Birthday</option><option>Wedding</option><option>Corporate</option>
+          <option>Anniversary</option><option>Baby Shower</option><option>House Warming</option><option>Farewell</option>
+        </select></label>
+      <label>City (optional)<input id="city" maxlength="60" placeholder="e.g. Coimbatore"></label>
+    </div>
+    <label>Venue details (optional)<input id="venue" maxlength="120" placeholder="Home terrace, banquet hall, resort…"></label>
+    <label>Anything else? (optional)<textarea id="notes" maxlength="500" rows="2" placeholder="Vegetarian only, theme, kids…"></textarea></label>
+    <div id="form-error" class="alert alert-error" hidden></div>
+    <button class="btn btn-primary btn-block" type="submit" id="submit-btn">Get Recommendations</button>
+  </form>
+</div>
+{% endblock %}
+{% block scripts %}<script src="/static/js/party.js" defer></script>{% endblock %}

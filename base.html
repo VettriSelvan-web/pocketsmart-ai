@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}PocketSmart AI{% endblock %} · PocketSmart AI</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="/">PocketSmart</a>
+      <button class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+      <nav class="nav-links">
+        {% if user %}
+          <a href="/dashboard">Dashboard</a>
+          <a href="/home-planner">Home</a>
+          <a href="/party-planner">Party</a>
+          <a href="/jewelry-planner">Jewelry</a>
+          <a href="/history">History</a>
+          <a class="btn btn-light btn-sm" href="/logout">Logout ({{ user.username }})</a>
+        {% else %}
+          <a href="/#features">Features</a>
+          <a href="/#testimonials">Testimonials</a>
+          <a href="/login">Sign In</a>
+          <a class="btn btn-primary btn-sm" href="/register">Get Started</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <main>{% block content %}{% endblock %}</main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div><strong>PocketSmart AI</strong><br><span class="muted-light">Your smart budget &amp; recommendation assistant.</span></div>
+      <div class="muted-light">Recommendations are AI-generated estimates. Always verify prices on the store before buying.<br>
+        © PocketSmart AI</div>
+    </div>
+  </footer>
+  <script src="/static/js/app.js" defer></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

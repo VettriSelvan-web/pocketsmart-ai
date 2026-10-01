@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% from "_macros.html" import planner_header %}
+{% block title %}History{% endblock %}
+{% block content %}
+{{ planner_header("Recommendation History", "Review, reuse or delete your past plans.") }}
+<div class="container section-tight">
+  <div class="filters">
+    <a class="chip {{ 'active' if not category }}" href="/history">All</a>
+    <a class="chip {{ 'active' if category == 'home' }}" href="/history?category=home">Home</a>
+    <a class="chip {{ 'active' if category == 'party' }}" href="/history?category=party">Party</a>
+    <a class="chip {{ 'active' if category == 'jewelry' }}" href="/history?category=jewelry">Jewelry</a>
+  </div>
+  {% if items %}
+  <div class="list">
+    {% for r in items %}
+    <div class="list-row card">
+      <span class="chip">{{ r.category | category_label }}</span>
+      <a class="grow" href="/recommendations/{{ r.id }}"><strong>{{ r.title }}</strong></a>
+      <span class="muted">{{ r.budget | inr }} · {{ r.created_at | nice_date }}</span>
+      <a class="btn btn-outline btn-sm" href="/recommendations/{{ r.id }}">View</a>
+      <a class="btn btn-outline btn-sm" href="/{{ r.category }}-planner">Plan again</a>
+      <form method="post" action="/history/{{ r.id }}/delete" onsubmit="return confirm('Delete this recommendation?')">
+        <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+      </form>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="card empty">Nothing here yet.</div>
+  {% endif %}
+</div>
+{% endblock %}

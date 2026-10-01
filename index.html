@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Smart budget planning{% endblock %}
+{% block content %}
+<section class="hero"><div class="container">
+  <h1>Plan smarter. Spend wisely.</h1>
+  <p>PocketSmart AI turns your budget into personalised recommendations for your home, your parties and your jewelry — sourced from Amazon, Flipkart, IKEA, Swiggy, Zomato, OYO and more.</p>
+  <div class="hero-cta">
+    {% if user %}<a class="btn btn-primary" href="/dashboard">Go to Dashboard</a>
+    {% else %}<a class="btn btn-primary" href="/register">Create Free Account</a><a class="btn btn-light" href="/login">Sign In</a>{% endif %}
+  </div>
+</div></section>
+
+<section id="features" class="section"><div class="container">
+  <h2 class="section-title">Three planners, one smart assistant</h2>
+  <div class="cards three">
+    <article class="card feature"><div class="icon">🏠</div><h3>Home Interior Planner</h3>
+      <p>Enter your budget, rooms and quantities of lights, fans, tables and more. Get cost-effective options from IKEA and Amazon.</p>
+      <a href="/home-planner" class="link">Start planning →</a></article>
+    <article class="card feature"><div class="icon">🎉</div><h3>Party Budget Planner</h3>
+      <p>Tell us the event, guest count and budget. We split it across catering, venue, decoration and entertainment.</p>
+      <a href="/party-planner" class="link">Start planning →</a></article>
+    <article class="card feature"><div class="icon">💍</div><h3>Jewelry Planner</h3>
+      <p>Pick the occasion and style, optionally upload your outfit photo, and get matching jewelry within budget.</p>
+      <a href="/jewelry-planner" class="link">Start planning →</a></article>
+  </div>
+</div></section>
+
+<section id="testimonials" class="section alt"><div class="container">
+  <h2 class="section-title">What Our Users Say</h2>
+  <p class="center muted">Real experiences from people who have transformed their financial planning with PocketSmart.</p>
+  <div class="cards three">
+    <blockquote class="card quote">“PocketSmart helped me furnish my new apartment without breaking the bank. The recommendations were spot on and I saved nearly 30% of my original budget!”<footer><strong>Sarah K.</strong><span>Home Owner</span></footer></blockquote>
+    <blockquote class="card quote">“Planning my daughter's birthday party was so much easier with PocketSmart's budget breakdown. The AI suggestions for affordable decorations and catering were fantastic.”<footer><strong>Michael R.</strong><span>Parent</span></footer></blockquote>
+    <blockquote class="card quote">“The jewelry recommendations perfectly matched my outfit for the wedding. Saved me hours of searching and I received so many compliments!”<footer><strong>Priya M.</strong><span>Fashion Enthusiast</span></footer></blockquote>
+  </div>
+</div></section>
+
+<section class="cta"><div class="container center">
+  <h2>Ready to Optimize Your Budget?</h2>
+  <p>Join PocketSmart today and start making smarter financial decisions across all areas of your life.</p>
+  {% if not user %}<a class="btn btn-light" href="/login">Sign In</a> <a class="btn btn-primary" href="/register">Create Account</a>
+  {% else %}<a class="btn btn-primary" href="/dashboard">Open Dashboard</a>{% endif %}
+</div></section>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% from "_macros.html" import planner_header, result_view %}
+{% block title %}{{ rec.title }}{% endblock %}
+{% block content %}
+{{ planner_header(rec.category | category_label ~ " Recommendations", rec.title ~ " · " ~ (rec.created_at | nice_date)) }}
+<div class="container section-tight">
+  {% if rec.inputs.image_url %}
+  <div class="card outfit"><img src="{{ rec.inputs.image_url }}" alt="Your outfit"><div><strong>Your outfit</strong><p class="muted">Used to match colours and style.</p></div></div>
+  {% endif %}
+  {{ result_view(rec.result) }}
+  <div class="actions">
+    <a class="btn btn-primary" href="/{{ rec.category }}-planner">New {{ rec.category | category_label | lower }} plan</a>
+    <a class="btn btn-outline" href="/history">Back to history</a>
+    <button class="btn btn-outline" onclick="window.print()">Print</button>
+  </div>
+  <p class="muted small">Source: {{ 'Gemini AI' if rec.source == 'gemini' else 'built-in sample data' }}. Prices are estimates; links open store search pages.</p>
+</div>
+{% endblock %}

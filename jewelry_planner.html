@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% from "_macros.html" import planner_header %}
+{% block title %}Jewelry Budget Planner{% endblock %}
+{% block content %}
+{{ planner_header("Jewelry Budget Planner", "Pick an occasion and style — optionally upload your outfit so the AI can match colours.") }}
+<div class="container section-tight narrow">
+  <form id="jewelry-form" class="card form" novalidate>
+    <div class="grid-2">
+      <label>Total budget (₹)<input type="number" id="budget" min="1" step="1" required placeholder="e.g. 25000"></label>
+      <label>Occasion
+        <select id="occasion">
+          <option>Wedding</option><option>Festival</option><option>Party</option>
+          <option>Office / Daily wear</option><option>Engagement</option><option>Anniversary</option><option>Gift</option>
+        </select></label>
+      <label>Style
+        <select id="style">
+          <option value="">No preference</option><option>Traditional</option><option>Modern</option>
+          <option>Minimalist</option><option>Statement</option><option>Vintage</option><option>Fusion</option>
+        </select></label>
+      <label>Metal
+        <select id="metal"><option>Any</option><option>Gold</option><option>Silver</option><option>Rose Gold</option><option>Diamond</option><option>Oxidised</option><option>Artificial / Fashion</option></select></label>
+    </div>
+    <label>Outfit image (optional · JPG/PNG/WEBP · max 5 MB)
+      <input type="file" id="outfit_image" accept="image/png,image/jpeg,image/webp"></label>
+    <img id="preview" class="preview" alt="Outfit preview" hidden>
+    <label>Anything else? (optional)<textarea id="notes" maxlength="500" rows="2" placeholder="Allergies, favourite stones…"></textarea></label>
+    <div id="form-error" class="alert alert-error" hidden></div>
+    <button class="btn btn-primary btn-block" type="submit" id="submit-btn">Get Recommendations</button>
+  </form>
+</div>
+{% endblock %}
+{% block scripts %}<script src="/static/js/jewelry.js" defer></script>{% endblock %}

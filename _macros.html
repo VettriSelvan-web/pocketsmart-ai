@@ -1,0 +1,47 @@
+{% macro planner_header(title, subtitle) %}
+<section class="page-head"><div class="container">
+  <h1>{{ title }}</h1><p>{{ subtitle }}</p>
+</div></section>
+{% endmacro %}
+
+{% macro result_view(result) %}
+  {% if result.notice %}<div class="alert alert-warn">{{ result.notice }}</div>{% endif %}
+  {% if result.summary %}<p class="lead">{{ result.summary }}</p>{% endif %}
+
+  <div class="stats">
+    <div class="stat"><span>Your budget</span><strong>{{ result.total_budget | inr }}</strong></div>
+    <div class="stat"><span>Estimated total</span>
+      <strong class="{{ 'bad' if result.over_budget else 'good' }}">{{ result.estimated_total | inr }}</strong></div>
+    <div class="stat"><span>Remaining</span>
+      <strong class="{{ 'bad' if result.over_budget else 'good' }}">{{ (result.total_budget - result.estimated_total) | inr }}</strong></div>
+  </div>
+
+  {% for section in result.sections %}
+  <section class="rec-section">
+    <div class="rec-section-head">
+      <h2>{{ section.title }}</h2>
+      <span class="chip">Allocated {{ section.allocated_budget | inr }}</span>
+    </div>
+    <div class="cards">
+      {% for item in section['items'] %}
+      <article class="card item">
+        <span class="platform platform-{{ item.platform | lower }}">{{ item.platform }}</span>
+        <h3>{{ item.name }}</h3>
+        {% if item.why %}<p>{{ item.why }}</p>{% endif %}
+        <div class="price-row">
+          <span>{{ item.estimated_price | inr }}{% if item.quantity > 1 %} × {{ item.quantity }}{% endif %}</span>
+          <strong>{{ item.total | inr }}</strong>
+        </div>
+        <a class="btn btn-outline btn-sm" href="{{ item.url }}" target="_blank" rel="noopener noreferrer">Search on {{ item.platform }} ↗</a>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+  {% endfor %}
+
+  {% if result.tips %}
+  <section class="card tips"><h2>Smart tips</h2>
+    <ul>{% for t in result.tips %}<li>{{ t }}</li>{% endfor %}</ul>
+  </section>
+  {% endif %}
+{% endmacro %}
